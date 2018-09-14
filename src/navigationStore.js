@@ -146,6 +146,7 @@ function createNavigationOptions(params) {
     backTitle,
     backTitleEnabled,
     backToInitial,
+    legacy,
     component,
     drawerIcon,
     drawerImage,
@@ -344,14 +345,14 @@ function createNavigationOptions(params) {
       res.headerStyle = { marginTop: StatusBar.currentHeight };
     }
 
-    if (backToInitial) {
+    if (!legacy && backToInitial) {
       const userDefinedTabBarOnPress = res.tabBarOnPress;
       res.tabBarOnPress = (data) => {
         if (userDefinedTabBarOnPress) {
           console.warn('backToInitial and tabBarOnPress were both defined and might cause unexpected navigation behaviors. I hope you know what you are doing ;-)');
           userDefinedTabBarOnPress(scene, jumpToIndex);
         }
-        if (data.navigation.state.index !== 0) {
+        if (data.navigation && data.navigation.state.index !== 0) {
           data.navigation.dispatch(StackActions.popToTop());
         } else {
           data.defaultHandler();
