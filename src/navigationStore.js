@@ -189,9 +189,6 @@ function createNavigationOptions(params) {
     ...props
   } = params;
   const NavBar = renderNavigationBar || navBar;
-  if (component && component.navigationOptions) {
-    return component.navigationOptions;
-  }
   return ({ navigation, screenProps }) => {
     const navigationParams = navigation.state.params || {};
     const state = {
@@ -199,6 +196,7 @@ function createNavigationOptions(params) {
       ...params,
       ...navigationParams,
       ...screenProps,
+      ...(component && component.navigationOptions ? component.navigationOptions : {}),
     };
     const res = {
       ...props,
