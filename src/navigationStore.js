@@ -198,19 +198,20 @@ function createNavigationOptions(params) {
       ...screenProps,
       ...(component && component.navigationOptions ? component.navigationOptions : {}),
     };
+    const navigationOptions = component && component.navigationOptions ? component.navigationOptions : {};
     const res = {
       ...props,
-      headerBackImage: navigationParams.backButtonImage || backButtonImage,
-      headerBackTitle: getValue(navigationParams.backTitle || backTitle, state),
-      headerBackTitleEnabled: navigationParams.backTitleEnabled || backTitleEnabled,
-      headerLayoutPreset: navigationParams.headerLayoutPreset || headerLayoutPreset,
-      headerLeft: getValue(navigationParams.left || left || leftButton || params.renderLeftButton, state),
-      headerRight: getValue(navigationParams.right || right || rightButton || params.renderRightButton, state),
-      headerStyle: getValue(navigationParams.headerStyle || headerStyle || navigationBarStyle, state),
-      headerTintColor: navBarButtonColor || props.tintColor || navigationParams.tintColor || navigationParams.headerTintColor,
-      headerTitle: getValue(navigationParams.renderTitle || renderTitle || params.renderTitle, state),
-      headerTitleStyle: headerTitleStyle || titleStyle,
-      title: getValue(navigationParams.title || title || getTitle, state),
+      headerBackImage: navigationParams.backButtonImage || backButtonImage || navigationOptions.headerBackImage,
+      headerBackTitle: getValue(navigationParams.backTitle || backTitle || navigationOptions.headerBackTitle, state),
+      headerBackTitleEnabled: navigationParams.backTitleEnabled || backTitleEnabled || navigationOptions.headerBackTitleEnabled,
+      headerLayoutPreset: navigationParams.headerLayoutPreset || headerLayoutPreset || navigationOptions.headerLayoutPreset,
+      headerLeft: getValue(navigationParams.left || left || leftButton || params.renderLeftButton || navigationOptions.headerLeft, state),
+      headerRight: getValue(navigationParams.right || right || rightButton || params.renderRightButton || navigationOptions.headerRight, state),
+      headerStyle: getValue(navigationParams.headerStyle || headerStyle || navigationBarStyle || navigationOptions.headerStyle, state),
+      headerTintColor: navBarButtonColor || props.tintColor || navigationParams.tintColor || navigationParams.headerTintColor || navigationOptions.headerTintColor,
+      headerTitle: getValue(navigationParams.renderTitle || renderTitle || params.renderTitle || navigationOptions.headerTitle, state),
+      headerTitleStyle: headerTitleStyle || titleStyle || navigationOptions.headerTitleStyle,
+      title: getValue(navigationParams.title || title || getTitle || navigationOptions.title, state),
     };
 
     const NavBarFromParams = navigationParams.renderNavigationBar || navigationParams.navBar;
